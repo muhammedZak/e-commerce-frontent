@@ -1,51 +1,42 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
-import { createOrder } from '../store/slices/ordersSlice';
 import { clearCartItems } from '../store/slices/cartSlice';
-import CheckoutSteps from '../components/CheckOutSteps';
+import CheckoutSteps from '../components/Order/CheckOutSteps';
+import { useCreateOrderMutation } from '../store/apis/ordersApi';
 
 const PlaceOrder = () => {
   const cart = useSelector((state) => state.cart);
   const navigate = useNavigate();
 
+  const [createOrder, { isLoading, error }] = useCreateOrderMutation();
+
   useEffect(() => {
-    if (!cart.shippingAddress.address) {
+    if (!cart.shippingAddress._id) {
       navigate('/shipping');
     } else if (!cart.paymentMethod) {
       navigate('/payment');
     }
-  }, [cart.shippingAddress.address, cart.paymentMethod, navigate]);
-
-  const orderStatus = useSelector((state) => state.orders.isLoading);
-
-  const [isLoading, setIsLoading] = useState(false);
+  }, [cart.shippingAddress, cart.paymentMethod, navigate]);
 
   const dispatch = useDispatch();
 
   const onPlaceOrderClick = async () => {
-    if (orderStatus === false) {
-      try {
-        setIsLoading(true);
-        const response = await dispatch(
-          createOrder({
-            orderItems: cart.cartItems,
-            shippingAddress: cart.shippingAddress,
-            paymentMethod: cart.paymentMethod,
-            itemsPrice: cart.itemsPrice,
-            shippingPrice: cart.shippingPrice,
-            taxPrice: cart.taxPrice,
-            totalPrice: cart.totalPrice,
-          })
-        ).unwrap();
-        dispatch(clearCartItems());
-        navigate(`/orders/${response._id}`);
-      } catch (err) {
-        toast.error(err);
-      } finally {
-        setIsLoading(false);
-      }
+    try {
+      const res = await createOrder({
+        orderItems: cart.cartItems,
+        shippingAddress: cart.shippingAddress,
+        paymentMethod: cart.paymentMethod,
+        itemsPrice: cart.itemsPrice,
+        shippingPrice: cart.shippingPrice,
+        taxPrice: cart.taxPrice,
+        totalPrice: cart.totalPrice,
+      }).unwrap();
+      dispatch(clearCartItems());
+      navigate(`/orders/${res._id}`);
+    } catch (err) {
+      toast.error(err);
     }
   };
 

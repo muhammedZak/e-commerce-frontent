@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { FaUser, FaSignOutAlt } from 'react-icons/fa';
-import { logout } from '../store/slices/authSlice';
-import { logoutUser } from '../store/slices/usersSlice';
+import { logout } from '../../store/slices/authSlice';
+import { logoutUser } from '../../store/slices/usersSlice';
 import { toast } from 'react-toastify';
 
 const DropdownUser = ({ userName }) => {
@@ -32,7 +32,7 @@ const DropdownUser = ({ userName }) => {
   const handleNameClick = () => setShow(!show);
 
   return (
-    <div className="relative inline-block text-left">
+    <div className="relative inline-block text-left z-50">
       <button
         onClick={handleNameClick}
         className="focus:outline-none hover:text-gray-600"

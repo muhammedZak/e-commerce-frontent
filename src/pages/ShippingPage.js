@@ -1,112 +1,168 @@
-import { useState } from 'react';
-import { UseSelector, useDispatch, useSelector } from 'react-redux';
+import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { saveShippingAddress } from '../store/slices/cartSlice';
-import CheckoutSteps from '../components/CheckOutSteps';
+import Skeleton from '../components/Skeleton';
+import Address from '../components/Address/Address';
+import CartSummary from '../components/Cart/CartSummary';
+import {
+  useGetAddressQuery,
+  useDeleteAddressMutation,
+  useUpdateAddressMutation,
+  useAddAddressMutation,
+} from '../store/apis/addressApi';
+import AddressButton from '../components/Address/AddressButton';
+import AddAddress from '../components/Address/AddAddress';
 
 const ShippingPage = () => {
-  const cart = useSelector((state) => state.cart);
-  const { shippingAddress } = cart;
+  const { data, isLoading, isSuccess, refetch, error } = useGetAddressQuery();
 
-  const [address, setAddress] = useState(shippingAddress.address || '');
-  const [city, setCity] = useState(shippingAddress.city || '');
-  const [zip, setZip] = useState(shippingAddress.zip || '');
-  const [country, setCountry] = useState(shippingAddress.country || '');
+  const [deleteAddress, { isLoading: loadingDelete }] =
+    useDeleteAddressMutation();
+
+  const [addAddress, { isLoading: addAddressLoading, error: addAddressError }] =
+    useAddAddressMutation();
+
+  const [updateAddress, { isLoading: updateLoading }] =
+    useUpdateAddressMutation();
+
+  const [address, setAddress] = useState({});
+  const [showAddAddress, setShowAddAddress] = useState(false);
+
+  let defaultAddress;
+  let otherAddresses;
+
+  if (isSuccess && data) {
+    defaultAddress = data.address.find((ad) => ad.defaultAddress === true);
+    if (data.results > 0) {
+      otherAddresses = data.address.filter((ad) => ad.defaultAddress === false);
+    }
+  }
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const onAddAddressClick = () => {
+    setShowAddAddress(true);
+  };
+
+  const handleAddAddressClose = () => {
+    setShowAddAddress(false);
+  };
+
   const saveShippingHandler = () => {
-    dispatch(saveShippingAddress({ address, city, zip, country }));
+    dispatch(saveShippingAddress(address));
     navigate('/payment');
   };
 
+  const onRadioclick = (ad) => {
+    setAddress(ad);
+  };
+
+  const onRemoveClick = async (addressId) => {
+    await deleteAddress(addressId);
+    refetch();
+  };
+
+  const editAddressClick = async (addressData) => {
+    try {
+      await updateAddress(addressData).unwrap();
+      refetch();
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  let renderedAddress;
+
+  if (isSuccess && otherAddresses) {
+    renderedAddress = otherAddresses.map((ad) => (
+      <Address
+        key={ad._id}
+        address={ad}
+        isChecked={address._id}
+        onChange={onRadioclick}
+        onRemoveClick={onRemoveClick}
+        formSubmit={editAddressClick}
+      />
+    ));
+  }
+
+  const addAddressClick = async (addressData) => {
+    try {
+      await addAddress(addressData).unwrap();
+      refetch();
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
-    <>
-      <CheckoutSteps step1 step2 />
+    <div className="px-4 ">
+      <div className="p-2 my-2 border">
+        <h1 className="text-lg lg:text-2xl font-medium tracking-wide">
+          Select Delivery Address
+        </h1>
+      </div>
+      <div className="lg:flex gap-3">
+        <div className="lg:w-3/4">
+          {isLoading || updateLoading || loadingDelete || addAddressLoading ? (
+            <Skeleton times={3} className="h-10 w-full" />
+          ) : isSuccess ? (
+            <div>
+              {defaultAddress ? (
+                <>
+                  <div className="p-2 my-1 bg-gray-100">
+                    <h5 className="font-medium">Default Address</h5>
+                  </div>
+                  <Address
+                    formSubmit={editAddressClick}
+                    address={defaultAddress}
+                    isChecked={address._id}
+                    onChange={onRadioclick}
+                    onRemoveClick={onRemoveClick}
+                  />
+                </>
+              ) : (
+                ''
+              )}
 
-      <div className="container mx-auto p-8">
-        <div className="bg-white shadow-md rounded-lg p-6">
-          <h2 className="text-2xl font-semibold mb-4">Shipping Information</h2>
-
-          <div className="mb-4">
-            <label
-              className="block text-gray-600 text-sm font-semibold mb-2"
-              htmlFor="address"
-            >
-              Shipping Address
-            </label>
-            <input
-              onChange={(e) => setAddress(e.target.value)}
-              value={address}
-              className="border rounded-md py-2 px-3 w-full"
-              type="text"
-              id="address"
-              placeholder="123 Main St"
+              {otherAddresses && (
+                <>
+                  <div className="p-2 my-1 bg-gray-100">
+                    <h5 className="font-medium">Other Address</h5>
+                  </div>
+                  {renderedAddress}
+                </>
+              )}
+            </div>
+          ) : error ? (
+            <p>{error.message}</p>
+          ) : (
+            ''
+          )}
+          <div className="p-2 my-2 border">
+            <AddressButton
+              btnValue="ADD NEW ADDRESS"
+              onClick={onAddAddressClick}
             />
           </div>
-
-          <div className="mb-4">
-            <label
-              className="block text-gray-600 text-sm font-semibold mb-2"
-              htmlFor="city"
-            >
-              City
-            </label>
-            <input
-              onChange={(e) => setCity(e.target.value)}
-              value={city}
-              className="border rounded-md py-2 px-3 w-full"
-              type="text"
-              id="city"
-              placeholder="New York"
+          {showAddAddress && (
+            <AddAddress
+              formSubmit={addAddressClick}
+              onClose={handleAddAddressClose}
             />
-          </div>
-
-          <div className="mb-4">
-            <label
-              className="block text-gray-600 text-sm font-semibold mb-2"
-              htmlFor="zip"
-            >
-              ZIP Code
-            </label>
-            <input
-              value={zip}
-              className="border rounded-md py-2 px-3 w-full"
-              type="text"
-              id="zip"
-              placeholder="10001"
-              onChange={(e) => setZip(e.target.value)}
-            />
-          </div>
-
-          <div className="mb-4">
-            <label
-              className="block text-gray-600 text-sm font-semibold mb-2"
-              htmlFor="country"
-            >
-              Country
-            </label>
-            <input
-              value={country}
-              className="border rounded-md py-2 px-3 w-full"
-              type="text"
-              id="country"
-              placeholder="United States"
-              onChange={(e) => setCountry(e.target.value)}
-            />
-          </div>
-
-          <button
-            onClick={saveShippingHandler}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md"
-            type="submit"
-          >
-            Continue to Payment
-          </button>
+          )}
+        </div>
+        <div className="my-1 lg:w-1/4">
+          <CartSummary
+            disabled={!address}
+            btnValue="CONTINUE"
+            btnClick={saveShippingHandler}
+          />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

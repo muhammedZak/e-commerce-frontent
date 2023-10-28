@@ -13,6 +13,11 @@ export const addNewUser = createAsyncThunk('users/addNewUser', async (user) => {
   return response.data;
 });
 
+export const updateUser = createAsyncThunk('users/addNewUser', async (user) => {
+  const response = await axios.put('/api/users/update-me', user);
+  return response.data;
+});
+
 export const loginUser = createAsyncThunk('users/loginUser', async (user) => {
   const response = await axios.post('/api/users/login', user);
   return response.data;
@@ -21,11 +26,6 @@ export const loginUser = createAsyncThunk('users/loginUser', async (user) => {
 export const logoutUser = createAsyncThunk('users/logoutUser', async () => {
   const response = await axios.post('/api/users/logout');
   return response.data;
-});
-
-export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
-  const response = await axios.get('/api/users');
-  return response.data.users;
 });
 
 const usersSlice = createSlice({

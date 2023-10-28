@@ -14,7 +14,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="md:w-1/6">
+    <div className="md:w-1/6 border-r-4">
       <div className="container mx-auto">
         <div className="md:pl-5 md:mt-24">
           <div className="md:mb-5">

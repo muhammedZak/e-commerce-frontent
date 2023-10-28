@@ -1,44 +1,40 @@
 import { useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 import { toast } from 'react-toastify';
 import {
-  getOrderDetails,
-  getPayPalClientId,
-  payOrder,
-} from '../store/slices/ordersSlice';
+  useGetOrderByIdQuery,
+  useGetPayPalClientIdQuery,
+  usePayOrderMutation,
+} from '../store/apis/ordersApi';
 import Skeleton from '../components/Skeleton';
-import { useThunk } from '../hooks/use-thunks';
 
 const OrderPage = () => {
   const { id: orderId } = useParams();
-  const [doFetchOrder, isLoadingOrder, loadingOrderError] =
-    useThunk(getOrderDetails);
 
-  const [doPayOrder, isLoadingPayOrder, loadingPayOrderError] =
-    useThunk(payOrder);
+  const {
+    data: order,
+    refetch,
+    isLoading,
+    isError,
+    error,
+  } = useGetOrderByIdQuery(orderId);
 
-  const [doGetPayPalClientId, isLoadingPayPalId, loadingPayPalIdError] =
-    useThunk(getPayPalClientId);
+  const {
+    data: paypal,
+    isLoading: loadingPayPal,
+    error: errorPayPal,
+  } = useGetPayPalClientIdQuery();
 
-  useEffect(() => {
-    doFetchOrder(orderId);
-    doGetPayPalClientId();
-  }, [doFetchOrder, doGetPayPalClientId, orderId]);
-
-  const { data } = useSelector((state) => state.orders);
-  const { orderItems, user, shippingAddress, ...order } = data;
+  const [payOrder, { isLoading: loadingPay }] = usePayOrderMutation();
 
   const { userInfo } = useSelector((state) => state.auth);
-
-  const paypal = useSelector((state) => state.orders.paypalId);
-  console.log(paypal.clientId);
 
   const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
 
   useEffect(() => {
-    if (!loadingPayPalIdError && !isLoadingPayPalId && paypal.clientId) {
+    if (!errorPayPal && !loadingPayPal && paypal.clientId) {
       const loadPaypalScript = async () => {
         console.log('hiii');
         paypalDispatch({
@@ -56,15 +52,13 @@ const OrderPage = () => {
         }
       }
     }
-  }, [loadingPayPalIdError, isLoadingPayPalId, order, paypal, paypalDispatch]);
-
-  const dispatch = useDispatch();
+  }, [errorPayPal, loadingPayPal, order, paypal, paypalDispatch]);
 
   function onApprove(data, actions) {
     return actions.order.capture().then(async function (details) {
       try {
-        await doPayOrder({ orderId, details });
-        dispatch(getOrderDetails(orderId));
+        await payOrder({ orderId, details });
+        refetch();
         toast.success('Order is paid');
       } catch (err) {
         toast.error(err?.data?.message || err.error);
@@ -75,9 +69,8 @@ const OrderPage = () => {
   function onError(err) {
     toast.error(err.message);
   }
-  // console.log(order.totalPrice);
+
   function createOrder(data, actions) {
-    console.log('hello');
     return actions.order
       .create({
         purchase_units: [
@@ -91,13 +84,13 @@ const OrderPage = () => {
       });
   }
 
-  return isLoadingOrder ? (
+  return isLoading ? (
     <Skeleton times={10} className="h-20 w-full" />
-  ) : loadingOrderError ? (
-    <p>error fething data..</p>
+  ) : isError ? (
+    <p>error fething data..{error.toString()}</p>
   ) : (
     <>
-      <div className="bg-gradient-to-r from-blue-100 via-blue-200 to-blue-300  min-h-screen">
+      <div className=" bg-gradient-to-r from-blue-100 via-blue-200 to-blue-300  min-h-screen">
         <div className="container mx-auto flex  py-12">
           <div className="bg-white w-full  rounded-lg shadow-lg p-8 text-gray-800">
             <h1 className="text-4xl font-semibold mb-8 text-center">
@@ -109,15 +102,15 @@ const OrderPage = () => {
 
               {/* Product Card */}
 
-              {orderItems &&
-                orderItems?.map((item) => (
+              {order.orderItems &&
+                order.orderItems?.map((item) => (
                   <div
                     key={item._id}
                     className="border-b border-gray-300 pb-2 mb-2 grid grid-cols-2 items-center gap-4"
                   >
                     <div className="flex items-center space-x-4">
                       <img
-                        src={item?.images}
+                        src={item?.images[0].path}
                         alt={item?.name}
                         className="h-16 w-16 object-cover rounded-lg"
                       />
@@ -135,15 +128,16 @@ const OrderPage = () => {
             {/* Shipping Details */}
             <div className="bg-gray-100 p-6 rounded-lg mb-6">
               <h2 className="text-3xl font-semibold mb-4">Shipping Details</h2>
-              <p className="text-gray-600">Name: {user?.name}</p>
+              <p className="text-gray-600">Name: {order.user?.name}</p>
               <p className="text-gray-600">
-                Address: {shippingAddress?.address}, {shippingAddress?.city},{' '}
-                {shippingAddress?.zip}, {shippingAddress?.country}
+                Address: {order.shippingAddress?.address},{' '}
+                {order.shippingAddress?.city}, {order.shippingAddress?.zip},{' '}
+                {order.shippingAddress?.country}
               </p>
               <p className="text-gray-600">
                 Paid: {order?.isPaid ? 'Paid' : 'Not paid'}
               </p>
-              <p className="text-gray-600">Name: {user?.name}</p>
+              <p className="text-gray-600">Name: {order.user?.name}</p>
             </div>
             {/* Order Total */}
             <div className="bg-gray-100 p-6 rounded-lg mb-6">

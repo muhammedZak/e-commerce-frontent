@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import Header from './components/Header';
+import NavigationBar from './components/Header/NavigationBar';
 import Footer from './components/Footer';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -7,10 +7,14 @@ import 'react-toastify/dist/ReactToastify.css';
 function App() {
   return (
     <>
-      <ToastContainer />
-      <Header />
-      <Outlet />
-      <Footer />
+      <div className="">
+        <ToastContainer />
+        <NavigationBar />
+        <div>
+          <Outlet />
+        </div>
+        <Footer />
+      </div>
     </>
   );
 }

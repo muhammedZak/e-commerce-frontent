@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import CheckoutSteps from '../components/CheckOutSteps';
+import CheckoutSteps from '../components/Order/CheckOutSteps';
 import { savePaymentMethod } from '../store/slices/cartSlice';
 
 const PaymentMethod = () => {
@@ -10,7 +10,7 @@ const PaymentMethod = () => {
   const { shippingAddress } = cart;
 
   useEffect(() => {
-    if (!shippingAddress.address) {
+    if (!shippingAddress._id) {
       navigate('/shipping');
     }
   }, [navigate, shippingAddress]);
