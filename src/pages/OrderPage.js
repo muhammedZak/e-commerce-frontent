@@ -19,6 +19,7 @@ const OrderPage = () => {
     isLoading,
     isError,
     error,
+    isSuccess,
   } = useGetOrderByIdQuery(orderId);
 
   const {
@@ -58,6 +59,7 @@ const OrderPage = () => {
     return actions.order.capture().then(async function (details) {
       try {
         await payOrder({ orderId, details });
+        console.log(details);
         refetch();
         toast.success('Order is paid');
       } catch (err) {
@@ -96,7 +98,7 @@ const OrderPage = () => {
             <h1 className="text-4xl font-semibold mb-8 text-center">
               Order Details
             </h1>
-            Product Items
+
             <div className="bg-gray-100 p-6 rounded-lg mb-6">
               <h2 className="text-3xl font-semibold mb-4">Order Summary</h2>
 
@@ -128,11 +130,14 @@ const OrderPage = () => {
             {/* Shipping Details */}
             <div className="bg-gray-100 p-6 rounded-lg mb-6">
               <h2 className="text-3xl font-semibold mb-4">Shipping Details</h2>
-              <p className="text-gray-600">Name: {order.user?.name}</p>
               <p className="text-gray-600">
-                Address: {order.shippingAddress?.address},{' '}
-                {order.shippingAddress?.city}, {order.shippingAddress?.zip},{' '}
-                {order.shippingAddress?.country}
+                Name: {order.shippingAddress?.contact.name}
+              </p>
+              <p className="text-gray-600">
+                Address: {order.shippingAddress?.addressDetails.address},{' '}
+                {order.shippingAddress?.addressDetails.town},{' '}
+                {order.shippingAddress?.addressDetails.pin},{' '}
+                {order.shippingAddress?.addressDetails.country}
               </p>
               <p className="text-gray-600">
                 Paid: {order?.isPaid ? 'Paid' : 'Not paid'}
@@ -163,12 +168,14 @@ const OrderPage = () => {
             </div>
             {isPending ? (
               <Skeleton times={1} className="h-10 w-full" />
-            ) : (
+            ) : !order.isPaid ? (
               <PayPalButtons
                 createOrder={createOrder}
                 onApprove={onApprove}
                 onError={onError}
               ></PayPalButtons>
+            ) : (
+              ''
             )}
           </div>
         </div>

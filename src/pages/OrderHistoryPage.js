@@ -14,10 +14,10 @@ const OrderHistoryPage = () => {
           {order._id}
         </td>
         <td className="font-sans border-y-2 px-3 py-4 border-slate-700">
-          {order.ispaid ? 'Paid' : 'Not paid'}
+          {order.isPaid ? 'Paid' : 'Not paid'}
         </td>
         <td className="font-sans border-y-2 px-3 py-4 border-slate-700">
-          {order.ispaid ? 'Delivered' : 'Not delivered'}
+          {order.isPaid ? 'Delivered' : 'Not delivered'}
         </td>
         <td className="font-sans text-center border-y-2 px-3 py-4 border-slate-700">
           {order.paymentMethod}
@@ -69,7 +69,7 @@ const OrderHistoryPage = () => {
   ) : (
     <>
       <h2 className="text-center mt-4 text-2xl font-semibold border-b-2 mb-10">
-        You Orders
+        Your Orders
       </h2>
       <h3 className="text-xl font-medium text-center">You don't have orders</h3>
     </>
