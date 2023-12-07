@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
+
 import { useGetProductsQuery } from '../store/apis/productsApi';
 import ProdductCard from '../components/ProductList/ProdductCard';
 import Sidebar from '../components/ProductList/Sidebar';
@@ -10,9 +12,36 @@ import OffCanvas from '../components/ProductList/Offcanvas';
 const ProductsList = () => {
   const { pageNumber, keyword, filter } = useParams();
 
+  const [material, setMaterial] = useState([]);
+  const [minPrice, setMinPrice] = useState();
+  const [maxPrice, setMaxPrice] = useState();
+
+  const handlePriceClick = (minPrice, maxPrice) => {
+    if (!minPrice || !maxPrice) {
+      setMinPrice('');
+      setMaxPrice('');
+    } else if (minPrice === '0') {
+      setMinPrice('');
+      setMaxPrice(maxPrice);
+    } else if (maxPrice === '0') {
+      setMinPrice(minPrice);
+      setMaxPrice('');
+    } else {
+      setMinPrice(minPrice);
+      setMaxPrice(maxPrice);
+    }
+  };
+
+  const attr = material.length
+    ? encodeURIComponent(JSON.stringify(material))
+    : '';
+
   const { data, isSuccess, isLoading, error } = useGetProductsQuery({
     keyword,
     filter,
+    attr,
+    minPrice,
+    maxPrice,
     pageNumber: Number(pageNumber) || 1,
   });
 
@@ -25,7 +54,7 @@ const ProductsList = () => {
   } else if (isSuccess) {
     content = data.products.map((product) => {
       return (
-        <div className="mt-3">
+        <div key={product._id} className="mt-3">
           <ProdductCard key={product._id} product={product} />
         </div>
       );
@@ -40,7 +69,11 @@ const ProductsList = () => {
             <div className="pb-2 block lg:hidden">
               <OffCanvas />
             </div>
-            <Sidebar />
+            <Sidebar
+              material={material}
+              setMaterial={setMaterial}
+              onClick={handlePriceClick}
+            />
             <div className="lg:col-span-3">
               <Header count={isSuccess ? data.results : 0} />
               <div className="md:grid md:grid-cols-3 md:gap-5 lg:grid-cols-4">

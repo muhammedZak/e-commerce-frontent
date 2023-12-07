@@ -39,10 +39,6 @@ const router = createBrowserRouter(
     <Route path="/" element={<App />}>
       <Route index={true} path="/" element={<HomePage />} />
       <Route path="/search/:keyword" element={<HomePage />} />
-      {/* <Route path="/men" element={<ProductsList />} />
-      <Route path="/men/page/:pageNumber" element={<ProductsList />} />
-      <Route path="/women" element={<ProductsList />} />
-      <Route path="/women/page/:pageNumber" element={<ProductsList />} /> */}
       <Route path="/watches" element={<ProductsList />} />
       <Route path="/watches/:filter" element={<ProductsList />} />
       <Route

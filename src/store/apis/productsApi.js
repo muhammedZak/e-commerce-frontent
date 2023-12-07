@@ -12,9 +12,9 @@ export const productsApi = createApi({
       }),
     }),
     getProducts: builder.query({
-      query: ({ keyword, pageNumber, filter }) => ({
+      query: ({ keyword, pageNumber, filter, attr, minPrice, maxPrice }) => ({
         url: '/api/products',
-        params: { keyword, pageNumber, filter },
+        params: { keyword, pageNumber, filter, attr, minPrice, maxPrice },
       }),
     }),
     getProduct: builder.query({
