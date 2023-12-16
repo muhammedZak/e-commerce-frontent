@@ -75,7 +75,7 @@ const SignUpPage = () => {
                 value={email}
                 onChange={onEmailChange}
                 type="email"
-                className="p-3 border w-80 mt-5 block"
+                className="p-3 border w-80 mt-2 block"
                 placeholder=" email"
               />
               <input
@@ -83,7 +83,7 @@ const SignUpPage = () => {
                 value={password}
                 onChange={onPasswordChange}
                 type="password"
-                className="p-3 border w-80 my-5 block"
+                className="p-3 border w-80 my-2 block"
                 placeholder=" password"
               />
               <Link className="text-blue-500 underline" to="/login">
@@ -93,7 +93,7 @@ const SignUpPage = () => {
                 onClick={onRegisterClick}
                 disabled={!canSave}
                 type="button"
-                className="border p-2 block bg-blue-500 text-white"
+                className="border p-2 mt-2 block bg-blue-500 text-white"
               >
                 Register
               </button>

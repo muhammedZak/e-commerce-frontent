@@ -4,6 +4,13 @@ export const usersApi = createApi({
   reducerPath: 'users',
   baseQuery: fetchBaseQuery({ baseUrl: '' }),
   endpoints: (builder) => ({
+    googleLogin: builder.mutation({
+      query: (credential) => ({
+        url: '/api/users/auth/google',
+        method: 'POST',
+        body: credential,
+      }),
+    }),
     getUsers: builder.query({
       query: () => '/api/users',
     }),
@@ -27,6 +34,7 @@ export const usersApi = createApi({
 });
 
 export const {
+  useGoogleLoginMutation,
   useGetUsersQuery,
   useGetUserQuery,
   useDeletUserMutation,

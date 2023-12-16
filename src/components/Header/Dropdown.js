@@ -42,14 +42,14 @@ const Dropdown = ({ userInfo }) => {
           />
         </div>
 
-        <p className=" text-black px-2 py-2 hover:text-white ml-1 uppercase font-semibold rounded hover:bg-gray-800">
+        <p className=" text-white text-lg hover:text-gray-400 capitalize font-semibold rounded ">
           {userInfo}
         </p>
       </button>
       {show && (
         <div
           onClick={() => setShow(false)}
-          className="w-48 mt-2 py-2 absolute right-0 bg-white rounded-lg shadow-xl"
+          className="w-48 mt-2 py-2 absolute right-0 bg-gray-400 rounded-lg shadow-xl"
         >
           <Link
             className="block px-4 py-2 hover:bg-indigo-500 hover:text-white"
@@ -66,6 +66,7 @@ const Dropdown = ({ userInfo }) => {
             Your orders
           </Link>
           <div
+            style={{ cursor: 'pointer' }}
             onClick={onLogoutClick}
             disabled={status === 'pending'}
             className="block px-4 py-2 hover:bg-indigo-500 hover:text-white"

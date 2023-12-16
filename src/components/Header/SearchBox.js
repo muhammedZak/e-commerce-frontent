@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
-const SearchBox = () => {
+const SearchBox = ({ isSidbar = false }) => {
   const navigate = useNavigate();
   const { keyword: urlKeyword } = useParams();
 
@@ -25,7 +25,7 @@ const SearchBox = () => {
         onChange={(e) => setKeyword(e.target.value)}
         value={keyword}
         placeholder=" Search here"
-        className=""
+        className={isSidbar ? 'border-2' : ''}
       />
       <button
         className=" px-2 py-2 bg-cyan-900 text-gray-200 hover:text-white  font-semibold  hover:bg-cyan-950"

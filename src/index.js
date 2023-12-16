@@ -7,6 +7,7 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import App from './App';
@@ -90,7 +91,9 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <PayPalScriptProvider deferLoading={true}>
-        <RouterProvider router={router} />
+        <GoogleOAuthProvider clientId="358515502724-jro672t495odjb9dce8iio5nps5m9219.apps.googleusercontent.com">
+          <RouterProvider router={router} />
+        </GoogleOAuthProvider>
       </PayPalScriptProvider>
     </Provider>
   </React.StrictMode>

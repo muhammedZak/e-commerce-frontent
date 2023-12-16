@@ -30,7 +30,7 @@ const UserEditPage = () => {
   const onChangeSubmit = async (e) => {
     e.preventDefault();
     try {
-      await updateUser({ userId, name, email, role });
+      await updateUser({ userId, name, email, role }).unwrap();
       toast.success('user updated successfully');
       refetch();
       navigate('/admin/userslist');

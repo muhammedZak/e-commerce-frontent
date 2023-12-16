@@ -10,10 +10,10 @@ const AdminDropdown = () => {
   return (
     <div className="relative">
       <button onClick={handleNameClick} className="flex items-center">
-        <p className="inline text-black hover:text-white ml-1 uppercase font-semibold rounded hover:bg-gray-800">
-          ADMIN
+        <p className="inline text-white text-lg hover:text-gray-400 capitalize font-semibold rounded ">
+          Admin
         </p>
-        <FaSortDown className=" text-black  hover:text-white mb-1 hover:bg-gray-800" />
+        <FaSortDown className=" text-white  hover:text-gray-400 mb-1 " />
       </button>
       {show && (
         <div
