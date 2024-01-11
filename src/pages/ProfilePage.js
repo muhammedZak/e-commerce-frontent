@@ -55,18 +55,18 @@ const ProfilePage = () => {
   };
 
   return (
-    <div className="p-8 bg-slate-50 md:flex md:justify-center">
-      <div className="p-5  border md:w-3/4">
-        <div className="py-4 text-center border">
+    <div className="p-8 bg-slate-50 md:flex md:justify-center ">
+      <div className="p-5 shadow-2xl  border md:w-3/4">
+        <div className="py-2 text-center border shadow-sm">
           <h1 className="capitalize font-semibold text-2xl tracking-wide">
             {userInfo.name}
           </h1>
         </div>
         <form onSubmit={onChangeSubmit}>
-          <div className="border-b py-5">
+          <div className="border-b py-3">
             <h2 className="text-xl font-medium">Account-Edit Profile</h2>
           </div>
-          <div className="my-5 border p-2">
+          <div className="my-2 border p-2">
             <label className="block">Name</label>
             <input
               onChange={(e) => setName(e.target.value)}
@@ -75,7 +75,7 @@ const ProfilePage = () => {
               className="focus:outline-none"
             />
           </div>
-          <div className="my-5 border p-2">
+          <div className="my-2 border p-2">
             <label className="block">Email</label>
             <input
               onChange={(e) => setEmail(e.target.value)}
@@ -84,7 +84,7 @@ const ProfilePage = () => {
               className="focus:outline-none"
             />
           </div>
-          <div className="my-5 border p-2">
+          <div className="my-2 border p-2">
             <label className="block">Mobile</label>
             <input
               onChange={(e) => setMobile(e.target.value)}
@@ -110,7 +110,7 @@ const ProfilePage = () => {
             <label>Female</label>
           </div>
 
-          <div className="my-5 border p-2">
+          <div className="my-2 border p-2">
             <label className="block">Date of Birth</label>
             <input
               type="date"
@@ -120,12 +120,12 @@ const ProfilePage = () => {
               className="focus:outline-none"
             />
           </div>
-          <div className="my-5 border p-4 text-center text-gray-300 bg-gray-900 hover:text-white">
+          <div className="mt-4 border p-3 text-center text-gray-300 bg-gray-900 hover:text-white">
             <button className="font-medium tracking-widest" type="submit">
               SAVE CHANGES
             </button>
           </div>
-          <div className="my-1 border p-4 text-center text-gray-300 bg-gray-900 hover:text-white">
+          <div className="my-1 border p-3 text-center text-gray-300 bg-gray-900 hover:text-white">
             <button className="font-medium tracking-widest">
               CHANGE PASSWORD
             </button>

@@ -32,9 +32,9 @@ const ProductsListPage = () => {
   return (
     <>
       <div className=" px-5">
-        <div className="flex justify-between px-5 pb-3 border-b-2 mb-10 mt-10">
-          <h1 className="text-gray-300 text-4xl font-semibold">Products</h1>
-          <button className="bg-blue-500 shadow-2xl shadow-gray-950 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded">
+        <div className="flex justify-between px-1 pb-3 border-b-2 mb-10 mt-10">
+          <h1 className="text-black text-4xl font-semibold">Products</h1>
+          <button className="bg-blue-500 shadow-sm hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded">
             <Link to="/admin/products">Create Product</Link>
           </button>
         </div>

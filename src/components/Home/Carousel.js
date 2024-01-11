@@ -4,11 +4,11 @@ import 'slick-carousel/slick/slick-theme.css';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import './Carousel.css';
-import image1 from '../../../assets/images/image-1.jpg';
-import image2 from '../../../assets/images/image-2.jpg';
-import image3 from '../../../assets/images/image-3.jpg';
-import image4 from '../../../assets/images/image-4.jpg';
-import image5 from '../../../assets/images/image-5.jpg';
+import image1 from '../../assets/images/image-1.jpg';
+import image2 from '../../assets/images/image-2.jpg';
+import image3 from '../../assets/images/image-3.jpg';
+import image4 from '../../assets/images/image-4.jpg';
+import image5 from '../../assets/images/image-5.jpg';
 
 export const PreviousBtn = ({ className, onClick }) => {
   return (
