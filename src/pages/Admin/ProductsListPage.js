@@ -110,7 +110,7 @@ const ProductsListPage = () => {
                     </button>
                     <button
                       onClick={() => onDeleteProduct(product._id)}
-                      className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded"
+                      className="bg-red-500 ml-2 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded"
                     >
                       Delete
                     </button>

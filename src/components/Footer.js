@@ -1,4 +1,8 @@
 import React from 'react';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import YouTubeIcon from '@mui/icons-material/YouTube';
+import InstagramIcon from '@mui/icons-material/Instagram';
 
 const Footer = () => {
   return (
@@ -57,19 +61,27 @@ const Footer = () => {
             </ul>
           </div>
           <div className="mb-5">
-            <p className="font-bold">Connect with us</p>
+            <p className="font-bold mb-2">Connect with us</p>
             <ul className="flex gap-5 justify-center">
               <li>
-                <a>insta</a>
+                <a>
+                  <InstagramIcon />
+                </a>
               </li>
               <li>
-                <a>facebook</a>
+                <a>
+                  <FacebookIcon />
+                </a>
               </li>
               <li>
-                <a>Twitter</a>
+                <a>
+                  <TwitterIcon />
+                </a>
               </li>
               <li>
-                <a>Youtube</a>
+                <a>
+                  <YouTubeIcon />
+                </a>
               </li>
             </ul>
           </div>

@@ -120,15 +120,17 @@ const ProfilePage = () => {
               className="focus:outline-none"
             />
           </div>
-          <div className="mt-4 border p-3 text-center text-gray-300 bg-gray-900 hover:text-white">
-            <button className="font-medium tracking-widest" type="submit">
-              SAVE CHANGES
-            </button>
-          </div>
-          <div className="my-1 border p-3 text-center text-gray-300 bg-gray-900 hover:text-white">
-            <button className="font-medium tracking-widest">
-              CHANGE PASSWORD
-            </button>
+          <div className="mt-4 flex justify-center items-center">
+            <div className="opacity-90 flex-1 border p-3 text-center text-gray-300 bg-gray-900 transition-all duration-1000 hover:text-white hover:opacity-100">
+              <button className="font-medium tracking-widest" type="submit">
+                SAVE CHANGES
+              </button>
+            </div>
+            <div className=" opacity-90 flex-1 border p-3 text-center text-gray-300 bg-gray-900 transition-all duration-1000 hover:text-white hover:opacity-100">
+              <button className="font-medium tracking-widest">
+                CHANGE PASSWORD
+              </button>
+            </div>
           </div>
         </form>
       </div>

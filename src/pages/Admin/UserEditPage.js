@@ -41,9 +41,9 @@ const UserEditPage = () => {
 
   return (
     <div>
-      <div className="p-8 md:flex md:justify-center shadow-2xl shadow-black">
+      <div className="p-4 md:flex md:justify-center shadow-2xl shadow-black">
         <div className="p-5 bg-white border md:w-3/4">
-          <div className="py-4 text-center border">
+          <div className="py-4 mb-4 text-center border">
             <h1 className="capitalize font-semibold text-2xl tracking-wide">
               Edit User
             </h1>
@@ -55,7 +55,7 @@ const UserEditPage = () => {
             <p>{error?.data?.message || error.error}</p>
           ) : (
             <form onSubmit={onChangeSubmit}>
-              <div className="my-5 border p-2">
+              <div className="my-3 border p-2">
                 <label className="block">Name</label>
                 <input
                   onChange={(e) => setName(e.target.value)}
@@ -64,7 +64,7 @@ const UserEditPage = () => {
                   className="focus:outline-none"
                 />
               </div>
-              <div className="my-5 border p-2">
+              <div className="my-3 border p-2">
                 <label className="block">Email</label>
                 <input
                   onChange={(e) => setEmail(e.target.value)}
@@ -73,7 +73,7 @@ const UserEditPage = () => {
                   className="focus:outline-none"
                 />
               </div>
-              <div className="my-5 border p-2">
+              <div className="my-3 border p-2">
                 <label className="block">Role</label>
                 <input
                   type="checkbox"
@@ -84,7 +84,7 @@ const UserEditPage = () => {
                   className="focus:outline-none"
                 />
               </div>
-              <div className="my-5 border p-4 text-center text-gray-300 bg-gray-900 hover:text-white">
+              <div className=" border p-3 text-center text-gray-300 bg-gray-900 hover:text-white">
                 <button className="font-medium tracking-widest" type="submit">
                   SAVE CHANGES
                 </button>

@@ -24,7 +24,7 @@ const UsersListPage = () => {
 
   return (
     <div className="px-5">
-      <h1 className=" text-center mt-4 text-gray-300 text-4xl font-semibold border-b-2 mb-10">
+      <h1 className=" text-center mt-4 text-black opacity-90 text-4xl font-semibold border-b-2 mb-10">
         Users
       </h1>
       {isLoading ? (
@@ -97,8 +97,8 @@ const UsersListPage = () => {
                     Actions
                   </span>
                   {user.role === 'user' && (
-                    <>
-                      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded">
+                    <div className="flex justify-around">
+                      <button className=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded">
                         <Link to={`/admin/user/${user._id}/edit`}>Edit</Link>
                       </button>
                       <button
@@ -107,7 +107,7 @@ const UsersListPage = () => {
                       >
                         Delete
                       </button>
-                    </>
+                    </div>
                   )}
                 </td>
               </tr>

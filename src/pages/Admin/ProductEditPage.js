@@ -121,7 +121,7 @@ const ProductEditPage = () => {
 
   return (
     <div>
-      <div className="p-8 md:flex md:justify-center shadow-2xl shadow-black">
+      <div className="p-4 md:flex md:justify-center shadow-2xl shadow-black">
         <div className="p-5 bg-white border md:w-3/4">
           <div className="py-4 text-center border">
             <h1 className="capitalize font-semibold text-2xl tracking-wide">
@@ -135,7 +135,7 @@ const ProductEditPage = () => {
             <p>{error?.data?.message || error.error}</p>
           ) : (
             <form onSubmit={onChangeSubmit}>
-              <div className="my-5 border p-2">
+              <div className="my-3 border p-2">
                 <label className="block">Name</label>
                 <input
                   onChange={(e) => setName(e.target.value)}
@@ -144,7 +144,7 @@ const ProductEditPage = () => {
                   className="w-full focus:outline-none"
                 />
               </div>
-              <div className="my-5 border p-2">
+              <div className="my-3 border p-2">
                 <label className="block">Description</label>
                 <input
                   onChange={(e) => setDescription(e.target.value)}
@@ -153,7 +153,7 @@ const ProductEditPage = () => {
                   className="w-full focus:outline-none"
                 />
               </div>
-              <div className="my-5 border p-2">
+              <div className="my-3 border p-2">
                 <label className="block">Price</label>
                 <input
                   onChange={(e) => setPrice(e.target.value)}
@@ -162,7 +162,7 @@ const ProductEditPage = () => {
                   className="w-full focus:outline-none"
                 />
               </div>
-              <div className="my-5 border p-2">
+              <div className="my-3 border p-2">
                 <label className="block">Count in stock</label>
                 <input
                   onChange={(e) => setCountInStock(e.target.value)}
@@ -172,7 +172,7 @@ const ProductEditPage = () => {
                 />
               </div>
 
-              <div className="my-5 border p-2">
+              <div className="my-3 border p-2">
                 <label htmlFor="multiple_files" className="block">
                   Upload image
                 </label>
@@ -193,7 +193,7 @@ const ProductEditPage = () => {
                 ))}
               </div>
 
-              <div className="my-5 p-2 border flex flex-wrap justify-between">
+              <div className="my-3 p-2 border flex flex-wrap justify-between">
                 <label>Product Details:</label>
                 <input
                   onChange={(e) => setNewTitle(e.target.value)}
@@ -221,18 +221,7 @@ const ProductEditPage = () => {
                 onDeleteDetails={handleDeleteDetails}
               />
 
-              {/* <div className="my-5 border p-2">
-                <label className="block">Price</label>
-                <input
-                  type="checkbox"
-                  checked={role === 'admin'}
-                  onChange={(e) =>
-                    e.target.checked ? setRole('admin') : setRole('user')
-                  }
-                  className="focus:outline-none"
-                />
-              </div> */}
-              <div className="my-5 border p-4 text-center text-gray-300 bg-gray-900 hover:text-white">
+              <div className="my-3 border py-3 text-center text-gray-300 bg-gray-900 hover:text-white">
                 <button className="font-medium tracking-widest" type="submit">
                   SAVE CHANGES
                 </button>
