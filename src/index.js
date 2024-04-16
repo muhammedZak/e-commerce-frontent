@@ -42,7 +42,7 @@ import OrderSuccessPage from './pages/OrderSuccessPage';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
-      <Route index={true} path="/" element={<HomePage />} />
+      <Route index={true} element={<HomePage />} />
       <Route path="/search/:keyword" element={<HomePage />} />
       <Route path="/watches" element={<ProductsList />} />
       <Route path="/watches/:filter" element={<ProductsList />} />
