@@ -42,22 +42,10 @@ const ProductDetailsPage = () => {
     setSelectedImage(newImage);
   };
 
-  // const onQtyChanged = (e) => {
-  //   setQty(e.target.value);
-  // };
-
   const handleAddToCartClick = () => {
     dispatch(addToCart({ ...product, qty: 1 }));
     navigate('/cart');
   };
-
-  // const qtyOptions = [...Array(product?.countInStock).keys()].map((x) => {
-  //   return (
-  //     <option key={x + 1} value={x + 1}>
-  //       {x + 1}
-  //     </option>
-  //   );
-  // });
 
   const onAddReviewClick = async (e) => {
     e.preventDefault();

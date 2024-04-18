@@ -16,9 +16,9 @@ const Review = () => {
               <FaRegStar />
             </span>
             <span className="flex-1">
-              <input className="w-full" type="range" />
+              <progress className="w-[95%]" value={1} />
             </span>
-            <span className="tracking-wider">5645</span>
+            <span className="tracking-wider w-[25%]">5645</span>
           </div>
           <div className="flex items-center gap-2">
             <span>4</span>
@@ -26,9 +26,9 @@ const Review = () => {
               <FaRegStar />
             </span>
             <span className="flex-1">
-              <input className="w-full" type="range" />
+              <progress className="w-[95%]" value={0.8} />
             </span>
-            <span className="tracking-wider">5645</span>
+            <span className="tracking-wider w-[25%]">5645</span>
           </div>
           <div className="flex items-center gap-2">
             <span>3</span>
@@ -36,19 +36,19 @@ const Review = () => {
               <FaRegStar />
             </span>
             <span className="flex-1">
-              <input className="w-full" type="range" />
+              <progress className="w-[95%]" value={0.5} />
             </span>
-            <span className="tracking-wider">5645</span>
+            <span className="tracking-wider w-[25%]">5645</span>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center  gap-2">
             <span>2</span>
             <span>
               <FaRegStar />
             </span>
             <span className="flex-1">
-              <input className="w-full" type="range" />
+              <progress className="w-[95%]" value={0.2} />
             </span>
-            <span className="tracking-wider">5645</span>
+            <span className="tracking-wider w-[25%]">64</span>
           </div>
           <div className="flex items-center gap-2">
             <span>1</span>
@@ -56,9 +56,9 @@ const Review = () => {
               <FaRegStar />
             </span>
             <span className="flex-1">
-              <input className="w-full" type="range" />
+              <progress className="w-[95%]" value={0.1} />
             </span>
-            <span className="tracking-wider">5645</span>
+            <span className="tracking-wider w-[25%]">45</span>
           </div>
         </div>
       </div>
