@@ -2,6 +2,7 @@ import React from 'react';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
 import { useGetTopProductsQuery } from '../../store/apis/productsApi';
+import { Link } from 'react-router-dom';
 
 const CardHome = () => {
   const { data, isLoading } = useGetTopProductsQuery();
@@ -26,8 +27,10 @@ const CardHome = () => {
             </div>
           </div>
           <div className="py-1">
-            <p className="py-1 text-2xl text-gray-950">{item.name}</p>
-            <p className="py-1 text-2xl text-gray-950">$ {item.price}</p>
+            <Link to={`/products/${item._id}`}>
+              <p className="py-1 text-2xl text-gray-950">{item.name}</p>
+              <p className="py-1 text-2xl text-gray-950">$ {item.price}</p>
+            </Link>
           </div>
         </div>
       ));
