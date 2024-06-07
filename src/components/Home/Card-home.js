@@ -13,7 +13,7 @@ const CardHome = () => {
   return isLoading
     ? loading
     : data.map((item) => (
-        <div>
+        <div key={item._id}>
           <div className="relative">
             <img className="w-full" src={item.images[0].path} alt="img" />
             <div className="p-1 absolute top-2 right-3 bg-white rounded-full">

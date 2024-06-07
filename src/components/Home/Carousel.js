@@ -46,7 +46,7 @@ const Carousel = () => {
       <section className=" h-44 sm:h-96 w-full rounded-sm shadow relative overflow-hidden">
         <Slider {...settings}>
           {banners.map((el, i) => (
-            <div>
+            <div key={i}>
               <img
                 draggable="false"
                 className="h-44 sm:h-96 w-full object-fit"
