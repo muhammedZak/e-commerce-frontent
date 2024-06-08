@@ -1,8 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 export const usersApi = createApi({
   reducerPath: 'users',
-  baseQuery: fetchBaseQuery({ baseUrl: '' }),
+  baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
   endpoints: (builder) => ({
     googleLogin: builder.mutation({
       query: (credential) => ({
