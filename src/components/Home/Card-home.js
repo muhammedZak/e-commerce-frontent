@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom';
 const CardHome = () => {
   const { data, isLoading } = useGetTopProductsQuery();
 
+  console.log(data);
+
   let loading;
   if (isLoading) loading = <p>loading</p>;
 
