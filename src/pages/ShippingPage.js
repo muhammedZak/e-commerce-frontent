@@ -98,7 +98,7 @@ const ShippingPage = () => {
   };
 
   return (
-    <div className="px-4 ">
+    <div className="px-4 my-8">
       <div className="p-2 my-2 border">
         <h1 className="text-lg lg:text-2xl font-medium tracking-wide">
           Select Delivery Address
