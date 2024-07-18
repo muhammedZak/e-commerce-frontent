@@ -5,6 +5,8 @@ import { addToCart, removeCart } from '../../store/slices/cartSlice';
 import { AiOutlineClose } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const CartItem = ({ item }) => {
   const [qty, setQty] = useState(item.qty);
 
@@ -32,7 +34,7 @@ const CartItem = ({ item }) => {
       <div className="md:flex md:w-2/3 md:gap-4">
         <img
           className="w-40 lg:w-36 h-48 lg:h-44 object-contain"
-          src={item.images[0].path}
+          src={API_URL + item.images[0].path}
           alt="Image"
         />
         <div className="md:flex-1">

@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const initialState = {
   data: [],
   status: 'idle',
@@ -9,22 +11,22 @@ const initialState = {
 };
 
 export const addNewUser = createAsyncThunk('users/addNewUser', async (user) => {
-  const response = await axios.post('/api/users/signup', user);
+  const response = await axios.post(`${API_URL}/api/users/signup`, user);
   return response.data;
 });
 
 export const updateUser = createAsyncThunk('users/addNewUser', async (user) => {
-  const response = await axios.put('/api/users/update-me', user);
+  const response = await axios.put(`${API_URL}/api/users/update-me`, user);
   return response.data;
 });
 
 export const loginUser = createAsyncThunk('users/loginUser', async (user) => {
-  const response = await axios.post('/api/users/login', user);
+  const response = await axios.post(`${API_URL}/api/users/login`, user);
   return response.data;
 });
 
 export const logoutUser = createAsyncThunk('users/logoutUser', async () => {
-  const response = await axios.post('/api/users/logout');
+  const response = await axios.post(`${API_URL}/api/users/logout`);
   return response.data;
 });
 

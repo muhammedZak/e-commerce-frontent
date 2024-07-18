@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Rating from '../Product/Rating';
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const ProdductCard = ({ product }) => {
   return (
     <div className="hover:shadow-2xl border-2">
@@ -9,7 +11,7 @@ const ProdductCard = ({ product }) => {
         <p>
           <img
             className="w-full"
-            src={product.images[0].path}
+            src={`${API_URL}${product.images[0].path}`}
             alt={product.name}
           />
         </p>

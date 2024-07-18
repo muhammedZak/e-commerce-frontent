@@ -4,10 +4,10 @@ import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
 import { useGetTopProductsQuery } from '../../store/apis/productsApi';
 import { Link } from 'react-router-dom';
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const CardHome = () => {
   const { data, isLoading } = useGetTopProductsQuery();
-
-  console.log(data);
 
   let loading;
   if (isLoading) loading = <p>loading</p>;
@@ -17,7 +17,11 @@ const CardHome = () => {
     : data.map((item) => (
         <div key={item._id}>
           <div className="relative">
-            <img className="w-full" src={item.images[0].path} alt="img" />
+            <img
+              className="w-full"
+              src={`${API_URL}${item.images[0].path}`}
+              alt="img"
+            />
             <div className="p-1 absolute top-2 right-3 bg-white rounded-full">
               <FavoriteBorderOutlinedIcon />
             </div>

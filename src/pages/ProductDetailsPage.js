@@ -12,6 +12,8 @@ import {
 import Rating from '../components/Reviews/Rating';
 import { toast } from 'react-toastify';
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const ProductDetailsPage = () => {
   const { id: productId } = useParams();
 
@@ -74,7 +76,7 @@ const ProductDetailsPage = () => {
         <div className="order-2   xl:self-start">
           <img
             className="w-full sm:h-auto xl:h-auto	object-contain"
-            src={selectedImage.path}
+            src={API_URL + selectedImage.path}
             alt={product.name}
           />
         </div>
@@ -92,7 +94,7 @@ const ProductDetailsPage = () => {
                         ? 'border-2 border-indigo-600'
                         : ''
                     }`}
-                    src={img.path}
+                    src={API_URL + img.path}
                     alt={product.name}
                   />
                 </button>
@@ -179,7 +181,7 @@ const ProductDetailsPage = () => {
                     </p>
                     <img
                       className="w-20"
-                      src={product.images[0].path}
+                      src={API_URL + product.images[0].path}
                       alt="Avatar"
                     />
                     <div className="py-1 mt-3 px-1 inline-flex gap-2 border font-serif text-neutral-500">

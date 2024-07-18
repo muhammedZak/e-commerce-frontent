@@ -15,12 +15,12 @@ export const productsApi = createApi({
     }),
     getProducts: builder.query({
       query: ({ keyword, pageNumber, filter, attr, minPrice, maxPrice }) => ({
-        url: '/api/products',
+        url: `${API_URL}/api/products`,
         params: { keyword, pageNumber, filter, attr, minPrice, maxPrice },
       }),
     }),
     getProduct: builder.query({
-      query: (productId) => `/api/products/${productId}`,
+      query: (productId) => `${API_URL}/api/products/${productId}`,
     }),
     updateProduct: builder.mutation({
       query: (product) => ({
@@ -37,7 +37,7 @@ export const productsApi = createApi({
     }),
     uploadProductImage: builder.mutation({
       query: (data) => ({
-        url: `/api/upload`,
+        url: `/api/uploads`,
         method: 'POST',
         body: data,
       }),
@@ -57,7 +57,7 @@ export const productsApi = createApi({
       }),
     }),
     getTopProducts: builder.query({
-      query: () => `/api/products/top`,
+      query: () => `${API_URL}/api/products/top`,
     }),
   }),
 });
